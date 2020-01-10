@@ -1,3 +1,12 @@
+const db = require("../db");
+const {
+  EtfFunds,
+  Holdings,
+  CountryWeights,
+  SectorWeights
+} = require("../db/models");
+const { scrapingFunc } = require("../scraping/index.js");
+
 const parseFunds = async () => {
   await db.sync({ force: true });
 

@@ -1,20 +1,11 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
-const db = require("./db");
 const PORT = process.env.PORT || 8080;
 const app = express();
 const { generateAccessToken } = require("./api/auth/auth");
 const cron = require("node-cron");
 const { parseFunds } = require("./services/seed");
-
-const {
-  EtfFunds,
-  Holdings,
-  CountryWeights,
-  SectorWeights
-} = require("./db/models");
-const { scrapingFunc } = require("./scraping/index.js");
 
 module.exports = app;
 
@@ -74,8 +65,8 @@ const startListening = () => {
 };
 
 const scheduleParsing = () => {
-  cron.schedule("0 * * * *", () => {
-    console.log("parsing funds every hour");
+  cron.schedule("0 */2 * * *", () => {
+    console.log("parsing funds every 2 hours");
     parseFunds();
   });
 };
