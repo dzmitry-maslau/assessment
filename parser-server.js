@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const { generateAccessToken } = require("./api/auth/auth");
 const cron = require("node-cron");
+const { parseFunds } = require("./services/seed");
 
 const {
   EtfFunds,
@@ -72,13 +73,6 @@ const startListening = () => {
   });
 };
 
-async function bootApp() {
-  await createApp();
-  await startListening();
-}
-
-bootApp();
-
 const scheduleParsing = () => {
   cron.schedule("0 * * * *", () => {
     console.log("parsing funds every hour");
@@ -86,39 +80,9 @@ const scheduleParsing = () => {
   });
 };
 
-const parseFunds = async () => {
-  await db.sync({ force: true });
+async function bootApp() {
+  await createApp();
+  await startListening();
+}
 
-  const {
-    allEtfsWithDescr,
-    allHoldings,
-    allCountryWeights,
-    allSectorWeights
-  } = await scrapingFunc();
-
-  await Promise.all(
-    allEtfsWithDescr.map(fund => {
-      return EtfFunds.create(fund);
-    })
-  );
-
-  await Promise.all(
-    allHoldings.map(fund => {
-      return Holdings.create(fund);
-    })
-  );
-
-  await Promise.all(
-    allCountryWeights.map(fund => {
-      return CountryWeights.create(fund);
-    })
-  );
-
-  await Promise.all(
-    allSectorWeights.map(fund => {
-      return SectorWeights.create(fund);
-    })
-  );
-
-  console.log("Saved!");
-};
+bootApp();
