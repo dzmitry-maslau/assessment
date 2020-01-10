@@ -61,7 +61,8 @@ const createApp = () => {
 
   // sends index.html
   app.use("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "challenge/public/index.html"));
+    // res.sendFile(path.join(__dirname, "..", "public/index.html"));
+    res.sendFile(__dirname + "/public/index.html");
   });
 
   // error handling endware
