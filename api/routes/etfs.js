@@ -1,10 +1,5 @@
 const router = require("express").Router();
-const {
-  EtfFunds /*,
-  Holdings,
-  CountryWeights,
-  SectorWeights */
-} = require("../../db/models");
+const { EtfFunds } = require("../../db/models");
 
 const { authenticateToken } = require("../auth/auth");
 

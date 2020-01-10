@@ -45,8 +45,6 @@ const scrapingFunc = async () => {
     links.push(fund.link);
   }
 
-  // const mappedLinks = mainPage.map(fund => fund.link);
-
   let allEtfsWithDescr = [];
   let allHoldings = [];
   let allCountryWeights = [];
@@ -62,26 +60,9 @@ const scrapingFunc = async () => {
 
     allEtfsWithDescr.push({ ...mainPage[i], ...{ description } });
     allHoldings = [...allHoldings, ...holdings];
-
-    // allHoldings.push(...holdings);
-
     allCountryWeights = [...allCountryWeights, ...countryWeights];
     allSectorWeights = [...allSectorWeights, ...sectorWeights];
   }
-
-  // const promise1 = Promise.resolve(1); // [a, b]
-  // const promise2 = Promise.resolve(2); // [1, 2]
-
-  // const res = [];
-
-  // const result = Promise.all(promise1, promise2);
-
-  // for (let i =1; i < 3; i++) {
-  //   res.push({
-  //     id: result[0][i],
-  //     name: result[1][i]
-  //   })
-  // }
 
   await browser.close();
 

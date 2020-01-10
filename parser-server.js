@@ -1,11 +1,9 @@
-// require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const db = require("./db");
 const PORT = process.env.PORT || 8080;
 const app = express();
-const jwt = require("jsonwebtoken");
 const { generateAccessToken } = require("./api/auth/auth");
 const cron = require("node-cron");
 
@@ -18,8 +16,6 @@ const {
 const { scrapingFunc } = require("./scraping/index.js");
 
 module.exports = app;
-
-// const refreshTokens = [];
 
 const createApp = () => {
   // logging middleware
@@ -34,15 +30,11 @@ const createApp = () => {
 
     const username = req.body.username;
     const user = { name: username };
-
     const accessToken = generateAccessToken(user);
-    // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-    // refreshTokens.push(refreshToken);
-    res.json({ accessToken: accessToken /*, refreshToken: refreshToken */ });
+    res.json({ accessToken: accessToken });
   });
 
   // auth and api routes
-  // app.use("/auth", require("./auth"));
   app.use("/api", require("./api"));
 
   // static file-serving middleware
@@ -61,7 +53,6 @@ const createApp = () => {
 
   // sends index.html
   app.use("*", (req, res) => {
-    // res.sendFile(path.join(__dirname, "..", "public/index.html"));
     res.sendFile(__dirname + "/public/index.html");
   });
 
