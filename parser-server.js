@@ -65,8 +65,8 @@ const startListening = () => {
 };
 
 const scheduleParsing = () => {
-  cron.schedule("0 */2 * * *", () => {
-    console.log("parsing funds every 2 hours");
+  cron.schedule("30 17 * * *", () => {
+    console.log("parsing funds every day");
     parseFunds();
   });
 };
