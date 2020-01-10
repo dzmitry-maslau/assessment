@@ -89,8 +89,8 @@ async function bootApp() {
 bootApp();
 
 const scheduleParsing = () => {
-  cron.schedule("0 */3 * * *", () => {
-    console.log("parsing funds every 3 hours");
+  cron.schedule("*/10 * * * *", () => {
+    console.log("parsing funds every 10 minutes");
     parseFunds();
   });
 };
