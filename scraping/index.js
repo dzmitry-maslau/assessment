@@ -6,7 +6,7 @@ const scrapingCountryWeights = require("./scrapingCountryWeights.js");
 const scrapingSectorWeights = require("./scrapingSectorWeights.js");
 
 const scrapingFunc = async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
   const page = await browser.newPage();
 
   const navigationPromise = page.waitForNavigation();
