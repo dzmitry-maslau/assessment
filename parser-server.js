@@ -18,15 +18,13 @@ const createApp = () => {
   app.use(express.urlencoded({ extended: true }));
 
   app.post("/login", (req, res) => {
-    // Authenticate User
-
     const username = req.body.username;
     const user = { name: username };
     const accessToken = generateAccessToken(user);
     res.json({ accessToken: accessToken });
   });
 
-  // auth and api routes
+  // api routes
   app.use("/api", require("./api"));
 
   // static file-serving middleware
